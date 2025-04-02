@@ -1,1 +1,104 @@
-openshift task 1 works
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Game by simon</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            text-align: center;
+            padding: 50px;
+        }
+        h1 {
+            color: #333;
+        }
+        #game-container {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+        }
+        input {
+            padding: 10px;
+            font-size: 16px;
+            width: 50px;
+            text-align: center;
+            margin: 10px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            font-size: 18px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #result {
+            font-size: 18px;
+            color: #333;
+            margin-top: 10px;
+        }
+        #new-game-btn {
+            display: none;
+            background-color: #f39c12;
+            margin-top: 20px;
+        }
+        #new-game-btn:hover {
+            background-color: #e67e22;
+        }
+    </style>
+</head>
+<body>
+    <h1>Guess the Number Game by Gaurav AutoDeploy Openshift</h1>
+    <div id="game-container">
+        <p>Guess the number between 1 and 100!</p>
+        <input type="number" id="userGuess" min="1" max="100">
+        <button onclick="checkGuess()">Guess</button>
+        <div id="result"></div>
+        <button id="new-game-btn" onclick="newGame()">Start New Game</button>
+    </div>
+
+    <script>
+        let secretNumber;
+        let attempts = 0;
+
+        // Initialize a new game
+        function newGame() {
+            secretNumber = Math.floor(Math.random() * 100) + 1;
+            attempts = 0;
+            document.getElementById('result').innerText = '';
+            document.getElementById('new-game-btn').style.display = 'none';
+            document.getElementById('userGuess').value = '';
+        }
+
+        // Check if the user's guess is correct
+        function checkGuess() {
+            const userGuess = document.getElementById('userGuess').value;
+            if (userGuess === '') {
+                document.getElementById('result').innerText = 'Please enter a number!';
+                return;
+            }
+
+            attempts++;
+            if (userGuess < secretNumber) {
+                document.getElementById('result').innerText = `Too low! Try again. Attempts: ${attempts}`;
+            } else if (userGuess > secretNumber) {
+                document.getElementById('result').innerText = `Too high! Try again. Attempts: ${attempts}`;
+            } else {
+                document.getElementById('result').innerText = `Congratulations! You guessed the number in ${attempts} attempts.`;
+                document.getElementById('new-game-btn').style.display = 'inline-block';
+            }
+        }
+
+        // Start a new game when the page loads
+        window.onload = newGame;
+    </script>
+</body>
+</html>
